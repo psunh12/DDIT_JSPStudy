@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>JSPBook</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <!-- 시큐리티 역할(role) 설정 -->
+  <security-role>
+     <role-name>tomcat</role-name>
+  </security-role>
+  <security-role>
+     <role-name>role1</role-name>
+  </security-role>
+  <security-role>
+     <role-name>manager</role-name>
+  </security-role>
+  <!-- 시큐리티의 제약사항(constraint)을 설정 -->
+  <security-constraint>
+  <!-- 이  url을 요청하려면 role1권한을 갖고 있어야함 -->
+  	<web-resource-collection>
+  		<web-resource-name>JSPBook</web-resource-name>
+  		<url-pattern>/ch10/security01.jsp</url-pattern>
+		<http-method>Get</http-method>
+  	</web-resource-collection>
+  	<auth-constraint>
+  		<description></description>
+  		<role-name>role1</role-name>
+  	</auth-constraint>
+  </security-constraint>
+  
+  <!-- /ch10/security02.jsp URL에 접근하려면
+  	tomcat 권한(role)을 갖고 있는 id(tomcat,both)로 로그인 해야함 -->
+  <security-constraint>
+  	<web-resource-collection>
+  		<web-resource-name>JSPBook</web-resource-name>
+  		<url-pattern>/ch10/security02.jsp</url-pattern>
+		<http-method>Get</http-method>
+  	</web-resource-collection>
+  	  	<auth-constraint>
+  		<description></description>
+  		<role-name>tomcat</role-name>
+  	</auth-constraint>
+  </security-constraint>
+  <!-- 아이디/ 비밀번호를 입력할 수 있는 기본 로그인 창 -->
+  <login-config>
+ 	<auth-method>BASIC</auth-method>
+  </login-config>  	
+</web-app>
